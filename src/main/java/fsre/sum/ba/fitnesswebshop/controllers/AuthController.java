@@ -5,6 +5,7 @@ import fsre.sum.ba.fitnesswebshop.models.korisnik;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,18 +22,30 @@ public class AuthController {
     public String add(Model model) {
         korisnik Korisnik = new korisnik();
         model.addAttribute("korisnik", Korisnik);
-        return "users/register";
+        return "korisnici/register";
     }
 
     @PostMapping("auth/register")
-    public String newKorisnik(@Valid korisnik Korisnik, BindingResult bindingresult, Model model) {
-        if (bindingresult.hasErrors()) {
+    public String newUser (@Valid korisnik Korisnik, BindingResult bindingresult, Model model){
+        boolean errors = bindingresult.hasErrors();
+
+        if(errors){
             model.addAttribute("korisnik", Korisnik);
-            return "users/register";
-        }
+            return "korisnici/register";
+        }else{
 
-
-
-        return "redirect:/";
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            Korisnik.setLozinka(encoder.encode(Korisnik.getLozinka()));
+            Korisnik.setPotvrdaLozinke((encoder.encode(Korisnik.getPotvrdaLozinke())));
+            userRepo.save(Korisnik);
+            return "auth/register";}
     }
+
+
+    @GetMapping("/auth/login")
+    public String login (Model model){
+        model.addAttribute("korisnik", new korisnik());
+        return "korisnici/login";
+    }
+
 }

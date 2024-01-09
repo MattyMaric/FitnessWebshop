@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UserRepository extends JpaRepository<korisnik, Long> {
 
-
+    @Query("SELECT DISTINCT k FROM korisnik k  WHERE k.email=?1")
+    public korisnik findByEmail(String email);
 }

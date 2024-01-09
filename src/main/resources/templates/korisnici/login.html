@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prijava na sustav</title>
+</head>
+<body>
+
+<div>
+
+    <form method="post" th:action="@{/auth/login}" th:object="${korisnik}">
+        <label>Unesite vasu email adresu</label>
+        <input type="email" th:field="*{email}"/>
+        <br/>
+        <label>Unesite vasu lozinku</label>
+        <input type="password" th:field="*{lozinka}"/>
+        <br/>
+        <button type="submit">Prijavi se</button>
+    </form>
+</div>
+
+</body>
+</html>

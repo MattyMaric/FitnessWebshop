@@ -3,6 +3,8 @@ package fsre.sum.ba.fitnesswebshop.models;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -25,6 +27,11 @@ public class korisnik {
     @NotBlank(message = "Polje je obavezno")
     String mobitel;
 
+    @NotBlank(message = "Molimo ponovo unesite lozinku!")
+    @Transient
+    String potvrdaLozinke;
+
+
     public korisnik(){
 
     }
@@ -37,6 +44,15 @@ public class korisnik {
         this.lozinka = lozinka;
         this.adresa = adresa;
         this.mobitel = mobitel;
+        this.potvrdaLozinke = potvrdaLozinke;
+    }
+
+    public String getPotvrdaLozinke() {
+        return potvrdaLozinke;
+    }
+
+    public void setPotvrdaLozinke(String potvrdaLozinke) {
+        this.potvrdaLozinke = potvrdaLozinke;
     }
 
     public long getIdKorisnika() {
@@ -93,5 +109,14 @@ public class korisnik {
 
     public void setMobitel(String mobitel) {
         this.mobitel = mobitel;
+    }
+
+    @AssertTrue(message = "Lozinke se moraju podudarati")
+    public boolean isPasswordsEqual() {
+        try {
+            return this.lozinka.equals(this.potvrdaLozinke);
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
