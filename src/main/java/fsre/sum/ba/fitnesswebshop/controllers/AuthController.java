@@ -38,7 +38,7 @@ public class AuthController {
             Korisnik.setLozinka(encoder.encode(Korisnik.getLozinka()));
             Korisnik.setPotvrdaLozinke((encoder.encode(Korisnik.getPotvrdaLozinke())));
             userRepo.save(Korisnik);
-            return "auth/register";}
+            return "redirect:/auth/login";}
     }
 
 
