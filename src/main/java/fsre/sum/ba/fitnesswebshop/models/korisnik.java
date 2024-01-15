@@ -22,9 +22,7 @@ public class korisnik {
     String email;
     @NotBlank(message = "Polje je obavezno")
     String lozinka;
-    @NotBlank(message = "Polje je obavezno")
     String adresa;
-    @NotBlank(message = "Polje je obavezno")
     String mobitel;
 
     @NotBlank(message = "Molimo ponovo unesite lozinku!")
@@ -44,7 +42,7 @@ public class korisnik {
         this.lozinka = lozinka;
         this.adresa = adresa;
         this.mobitel = mobitel;
-        this.potvrdaLozinke = potvrdaLozinke;
+
     }
 
     public String getPotvrdaLozinke() {
