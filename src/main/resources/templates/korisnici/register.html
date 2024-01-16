@@ -26,6 +26,16 @@
                     <input class="form-control" type="email" placeholder="Please enter your email" th:field="*{email}" />
                     <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                 </div>
+                <div class="input-group has-validation">
+                    <label class="form-label">Enter your phone number</label>
+                    <input class="form-control" type="text" placeholder="Please enter your phone number" th:field="*{mobitel}" />
+                    <div th:if="${#fields.hasErrors('mobitel')}" th:errors="*{mobitel}"></div>
+                </div>
+                <div class="input-group has-validation">
+                    <label class="form-label">Enter your address:</label>
+                    <input class="form-control" type="text" placeholder="Please enter your home address" th:field="*{adresa}" />
+                    <div th:if="${#fields.hasErrors('adresa')}" th:errors="*{adresa}"></div>
+                </div>
                 <div class="input-group">
                     <label class="form-label">Enter your password:</label>
                     <input class="form-control" type="password" th:field="*{lozinka}" placeholder="Please enter your password" />
