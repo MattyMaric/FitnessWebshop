@@ -3,7 +3,6 @@ package fsre.sum.ba.fitnesswebshop.controllers;
 import fsre.sum.ba.fitnesswebshop.repositories.UserRepository;
 import fsre.sum.ba.fitnesswebshop.models.korisnik;
 
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
