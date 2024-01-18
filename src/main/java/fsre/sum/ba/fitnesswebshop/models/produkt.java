@@ -16,18 +16,20 @@ public class produkt {
     long cijena;
     int kolicinaNaSkladistu;
     String kategorija;
+    String urlSlike;
 
     public produkt(){
 
     }
 
-    public produkt(long idProduka, String imeProduka, String opisProdukta, long cijena, int kolicinaNaSkladistu, String kategorija) {
+    public produkt(long idProduka, String imeProduka, String opisProdukta, long cijena, int kolicinaNaSkladistu, String kategorija, String urlSlike) {
         this.idProduka = idProduka;
         this.imeProduka = imeProduka;
         this.opisProdukta = opisProdukta;
         this.cijena = cijena;
         this.kolicinaNaSkladistu = kolicinaNaSkladistu;
         this.kategorija = kategorija;
+        this.urlSlike = urlSlike;
     }
 
     public long getIdProduka() {
@@ -76,5 +78,13 @@ public class produkt {
 
     public void setKategorija(String kategorija) {
         this.kategorija = kategorija;
+    }
+
+    public String getUrlSlike() {
+        return urlSlike;
+    }
+
+    public void setUrlSlike(String urlSlike) {
+        this.urlSlike = urlSlike;
     }
 }

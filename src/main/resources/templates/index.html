@@ -7,10 +7,9 @@
 </head>
 <body>
 <div class="container mt-5">
-
+    <a href="http://localhost:8080" class="btn btn-primary justify-content-end">Početna</a>
     <h2>Lista Korisnika</h2>
     <a href="/korisnici/add" class="btn btn-success">Dodaj Novog Korisnika</a>
-
     <form th:action="@{/logout}" method="post">
         <button type="submit" class="btn btn-danger">Odjavi se</button>
     </form>
