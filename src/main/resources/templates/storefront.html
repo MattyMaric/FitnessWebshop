@@ -36,7 +36,7 @@
         <div th:each="proizvod : ${proizvodi}" class="col-md-4">
             <div class="card mb-4 box-shadow">
 
-                <img th:src="@{src/main/resources/templates/static/slikeProizvoda/weights.jpg}" alt="Product Image">
+                <img th:src="${proizvod.urlSlike}" alt="Product Image">
 
                 <div class="card-body">
                     <h5 class="card-title" th:text="${proizvod.imeProduka}">Product Name</h5>
