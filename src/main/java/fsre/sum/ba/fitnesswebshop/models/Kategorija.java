@@ -1,11 +1,11 @@
 package fsre.sum.ba.fitnesswebshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
-public class kategorija {
+public class Kategorija {
 
     @Id
     @GeneratedValue
@@ -13,13 +13,16 @@ public class kategorija {
 
     String ime;
 
-    public kategorija(){
+    public Kategorija(){
 
     }
-    public kategorija(long idKategorije, String ime) {
+    public Kategorija(long idKategorije, String ime) {
         this.idKategorije = idKategorije;
         this.ime = ime;
     }
+
+    @OneToMany(mappedBy = "kategorija", cascade = CascadeType.ALL)
+    private Set<Produkt> produkti;
 
     public long getIdKategorije() {
         return idKategorije;

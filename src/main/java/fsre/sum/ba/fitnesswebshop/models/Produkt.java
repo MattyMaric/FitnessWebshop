@@ -1,51 +1,56 @@
 package fsre.sum.ba.fitnesswebshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
-public class produkt {
+public class Produkt {
 
     @Id
     @GeneratedValue
-    long idProduka;
+    long idProdukta;
 
-    String imeProduka;
+    String imeProdukta;
     String opisProdukta;
     long cijena;
     int kolicinaNaSkladistu;
-    String kategorija;
     String urlSlike;
 
-    public produkt(){
+    public Produkt(){
 
     }
 
-    public produkt(long idProduka, String imeProduka, String opisProdukta, long cijena, int kolicinaNaSkladistu, String kategorija, String urlSlike) {
-        this.idProduka = idProduka;
-        this.imeProduka = imeProduka;
+    public Produkt(long idProdukta, String imeProdukta, String opisProdukta, long cijena, int kolicinaNaSkladistu, String kategorija, String urlSlike) {
+        this.idProdukta = idProdukta;
+        this.imeProdukta = imeProdukta;
         this.opisProdukta = opisProdukta;
         this.cijena = cijena;
         this.kolicinaNaSkladistu = kolicinaNaSkladistu;
-        this.kategorija = kategorija;
         this.urlSlike = urlSlike;
     }
 
-    public long getIdProduka() {
-        return idProduka;
+    @OneToMany(mappedBy = "produkt", cascade = CascadeType.ALL)
+    private Set<NarudzbaProdukti> narudzbaProdukti;
+
+    @ManyToOne
+    @JoinColumn(name = "idKategorije")
+    private Kategorija kategorija;
+
+    public long getIdProdukta() {
+        return idProdukta;
     }
 
-    public void setIdProduka(long idProduka) {
-        this.idProduka = idProduka;
+    public void setIdProdukta(long idProdukta) {
+        this.idProdukta = idProdukta;
     }
 
-    public String getImeProduka() {
-        return imeProduka;
+    public String getImeProdukta() {
+        return imeProdukta;
     }
 
-    public void setImeProduka(String imeProduka) {
-        this.imeProduka = imeProduka;
+    public void setImeProdukta(String imeProdukta) {
+        this.imeProdukta = imeProdukta;
     }
 
     public String getOpisProdukta() {
@@ -70,14 +75,6 @@ public class produkt {
 
     public void setKolicinaNaSkladistu(int kolicinaNaSkladistu) {
         this.kolicinaNaSkladistu = kolicinaNaSkladistu;
-    }
-
-    public String getKategorija() {
-        return kategorija;
-    }
-
-    public void setKategorija(String kategorija) {
-        this.kategorija = kategorija;
     }
 
     public String getUrlSlike() {

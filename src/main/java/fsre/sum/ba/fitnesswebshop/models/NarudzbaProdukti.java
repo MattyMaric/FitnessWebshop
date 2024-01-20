@@ -1,31 +1,34 @@
 package fsre.sum.ba.fitnesswebshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class narudzbaProdukti {
+public class NarudzbaProdukti {
     @Id
     @GeneratedValue
     long idProduktaNarudzbe;
 
-    long idNarudzbe;
-    long idProdukta;
     int kolicina;
     long cijena;
 
-    public narudzbaProdukti(){
+    public NarudzbaProdukti(){
 
     }
 
-    public narudzbaProdukti(long idProduktaNarudzbe, long idNarudzbe, long idProdukta, int kolicina, long cijena) {
+    public NarudzbaProdukti(long idProduktaNarudzbe, int kolicina, long cijena) {
         this.idProduktaNarudzbe = idProduktaNarudzbe;
-        this.idNarudzbe = idNarudzbe;
-        this.idProdukta = idProdukta;
         this.kolicina = kolicina;
         this.cijena = cijena;
     }
+
+
+    @ManyToOne
+    @JoinColumn(name = "idNarudzbe")
+    private Narudzba narudzba;
+
+    @ManyToOne
+    @JoinColumn(name = "idProdukta")
+    private Produkt produkt;
 
     public long getIdProduktaNarudzbe() {
         return idProduktaNarudzbe;
@@ -33,22 +36,6 @@ public class narudzbaProdukti {
 
     public void setIdProduktaNarudzbe(long idProduktaNarudzbe) {
         this.idProduktaNarudzbe = idProduktaNarudzbe;
-    }
-
-    public long getIdNarudzbe() {
-        return idNarudzbe;
-    }
-
-    public void setIdNarudzbe(long idNarudzbe) {
-        this.idNarudzbe = idNarudzbe;
-    }
-
-    public long getIdProdukta() {
-        return idProdukta;
-    }
-
-    public void setIdProdukta(long idProdukta) {
-        this.idProdukta = idProdukta;
     }
 
     public int getKolicina() {

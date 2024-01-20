@@ -1,7 +1,7 @@
 package fsre.sum.ba.fitnesswebshop.controllers;
 
 import fsre.sum.ba.fitnesswebshop.repositories.UserRepository;
-import fsre.sum.ba.fitnesswebshop.models.korisnik;
+import fsre.sum.ba.fitnesswebshop.models.Korisnik;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +20,13 @@ public class AuthController {
 
     @GetMapping("auth/register")
     public String add(Model model) {
-        korisnik Korisnik = new korisnik();
+        Korisnik Korisnik = new Korisnik();
         model.addAttribute("korisnik", Korisnik);
         return "korisnici/register";
     }
 
     @PostMapping("auth/register")
-    public String newUser (@Valid korisnik Korisnik, BindingResult bindingresult, Model model){
+    public String newUser (@Valid Korisnik Korisnik, BindingResult bindingresult, Model model){
         boolean errors = bindingresult.hasErrors();
 
         if(errors){
@@ -45,7 +45,7 @@ public class AuthController {
 
     @GetMapping("/auth/login")
     public String login (Model model){
-        model.addAttribute("korisnik", new korisnik());
+        model.addAttribute("korisnik", new Korisnik());
         return "korisnici/login";
     }
 

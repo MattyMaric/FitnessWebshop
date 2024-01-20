@@ -1,10 +1,9 @@
 package fsre.sum.ba.fitnesswebshop.controllers;
 
-import fsre.sum.ba.fitnesswebshop.models.korisnik;
+import fsre.sum.ba.fitnesswebshop.models.Korisnik;
 import fsre.sum.ba.fitnesswebshop.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +23,7 @@ public class UserController {
 
     @GetMapping("/korisnici")
     public String listUsers(Model model) {
-        List<korisnik> korisnici = userRepository.findAll();
+        List<Korisnik> korisnici = userRepository.findAll();
         model.addAttribute("korisnici", korisnici);
         return "index"; // Check if "index.html" exists in templates directory
     }
@@ -34,12 +33,12 @@ public class UserController {
 
     @GetMapping("/korisnici/add")
     public String showAddUserForm(Model model) {
-        model.addAttribute("korisnik", new korisnik());
+        model.addAttribute("korisnik", new Korisnik());
         return "korisnici/add";
     }
 
     @PostMapping("/korisnici/add")
-    public String addUser(@Valid korisnik Korisnik, BindingResult result, Model model) {
+    public String addUser(@Valid Korisnik Korisnik, BindingResult result, Model model) {
         if (result.hasErrors()){
             model.addAttribute("korisnik", Korisnik);
             return "korisnici/add";
@@ -63,16 +62,16 @@ public class UserController {
 
     @GetMapping("/korisnici/edit/{idKorisnika}")
     public String showEditUserForm(@PathVariable Long idKorisnika, Model model) {
-        korisnik Korisnik = userRepository.findById(idKorisnika)
+        Korisnik Korisnik = userRepository.findById(idKorisnika)
                 .orElseThrow(() -> new IllegalArgumentException("Neispravan ID korisnika: " + idKorisnika));
         model.addAttribute("korisnik", Korisnik);
         return "korisnici/edit";
     }
 
     @PostMapping("/korisnici/edit/{idKorisnika}")
-    public String updateUser(@PathVariable Long idKorisnika, @ModelAttribute korisnik Korisnik, Model model) {
+    public String updateUser(@PathVariable Long idKorisnika, @ModelAttribute Korisnik Korisnik, Model model) {
         // Provjerite postoji li korisnik s tim ID-om
-        korisnik postojeciKorisnik = userRepository.findById(idKorisnika)
+        fsre.sum.ba.fitnesswebshop.models.Korisnik postojeciKorisnik = userRepository.findById(idKorisnika)
                 .orElseThrow(() -> new IllegalArgumentException("Neispravan ID korisnika: " + idKorisnika));
         postojeciKorisnik.setIme(Korisnik.getIme());
         postojeciKorisnik.setPrezime(Korisnik.getPrezime());

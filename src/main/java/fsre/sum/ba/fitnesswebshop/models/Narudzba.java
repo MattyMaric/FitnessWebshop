@@ -1,32 +1,36 @@
 package fsre.sum.ba.fitnesswebshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
-public class narudzba {
+public class Narudzba {
 
     @Id
     @GeneratedValue
     long idNarudzbe;
 
-    long idKorisnika;
-
     String datumNarudzbe;
 
     int kolicina;
 
-    public narudzba(){
+    public Narudzba(){
 
     }
 
-    public narudzba(long idNarudzbe, long idKorisnika, String datumNarudzbe, int kolicina) {
+    public Narudzba(long idNarudzbe, String datumNarudzbe, int kolicina) {
         this.idNarudzbe = idNarudzbe;
-        this.idKorisnika = idKorisnika;
         this.datumNarudzbe = datumNarudzbe;
         this.kolicina = kolicina;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "idKorisnika")
+    private Korisnik korisnik;
+
+    @OneToMany(mappedBy = "narudzba", cascade = CascadeType.ALL)
+    private Set<NarudzbaProdukti> narudzbaProdukti;
 
     public long getIdNarudzbe() {
         return idNarudzbe;
@@ -36,13 +40,6 @@ public class narudzba {
         this.idNarudzbe = idNarudzbe;
     }
 
-    public long getIdKorisnika() {
-        return idKorisnika;
-    }
-
-    public void setIdKorisnika(long idKorisnika) {
-        this.idKorisnika = idKorisnika;
-    }
 
     public String getDatumNarudzbe() {
         return datumNarudzbe;

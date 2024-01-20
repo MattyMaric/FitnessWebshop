@@ -1,14 +1,26 @@
 package fsre.sum.ba.fitnesswebshop.models;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-public class detaljiKorisnika implements org.springframework.security.core.userdetails.UserDetails{
+@Entity
+public class DetaljiKorisnika implements org.springframework.security.core.userdetails.UserDetails {
 
-    private korisnik korisnik;
+    @Id
+    @GeneratedValue
+    long detaljiKorisnikaId;
 
-    public detaljiKorisnika(korisnik korisnik){ this.korisnik = korisnik; }
+    @OneToOne(mappedBy = "detaljiKorisnika", cascade = CascadeType.ALL)
+    private Korisnik korisnik;
+
+    public DetaljiKorisnika() {
+    }
+
+    public DetaljiKorisnika(Korisnik korisnik) {
+        this.korisnik = korisnik;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -24,6 +36,7 @@ public class detaljiKorisnika implements org.springframework.security.core.userd
     public String getUsername() {
         return korisnik.getEmail();
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -48,11 +61,11 @@ public class detaljiKorisnika implements org.springframework.security.core.userd
         return korisnik.getIme() + " " + korisnik.getPrezime();
     }
 
-    public korisnik getKorisnik() {
+    public Korisnik getKorisnik() {
         return korisnik;
     }
 
-    public void setKorisnik(korisnik korisnik) {
+    public void setKorisnik(Korisnik korisnik) {
         this.korisnik = korisnik;
     }
 }

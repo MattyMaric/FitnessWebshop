@@ -1,14 +1,13 @@
 package fsre.sum.ba.fitnesswebshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Transient;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Set;
+
 @Entity
-public class korisnik {
+public class Korisnik {
 
     @Id
     @GeneratedValue
@@ -30,11 +29,11 @@ public class korisnik {
     String potvrdaLozinke;
 
 
-    public korisnik(){
+    public Korisnik(){
 
     }
 
-    public korisnik(long idKorisnika, String ime, String prezime, String email, String lozinka, String adresa, String mobitel) {
+    public Korisnik(long idKorisnika, String ime, String prezime, String email, String lozinka, String adresa, String mobitel) {
         this.idKorisnika = idKorisnika;
         this.ime = ime;
         this.prezime = prezime;
@@ -44,6 +43,16 @@ public class korisnik {
         this.mobitel = mobitel;
 
     }
+
+    @OneToMany(mappedBy = "korisnik", cascade = CascadeType.ALL)
+    private Set<Narudzba> narudzbe;
+
+    @OneToOne
+    @JoinColumn(name = "detaljiKorisnikaId")
+    private DetaljiKorisnika detaljiKorisnika;
+
+    @OneToOne(mappedBy = "korisnik", cascade = CascadeType.ALL)
+    private Korpa korpa;
 
     public String getPotvrdaLozinke() {
         return potvrdaLozinke;
