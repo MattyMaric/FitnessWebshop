@@ -1,5 +1,6 @@
 package fsre.sum.ba.fitnesswebshop.controllers;
 
+import fsre.sum.ba.fitnesswebshop.models.Role;
 import fsre.sum.ba.fitnesswebshop.repositories.UserRepository;
 import fsre.sum.ba.fitnesswebshop.models.Korisnik;
 
@@ -12,8 +13,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 @Controller
 public class AuthController {
+
+
 
     @Autowired
     UserRepository userRepo;
@@ -38,6 +45,7 @@ public class AuthController {
             String lozinkaEncoded = encoder.encode(Korisnik.getLozinka());
             Korisnik.setLozinka(lozinkaEncoded);
             Korisnik.setPotvrdaLozinke(lozinkaEncoded);
+            Korisnik.setRoles(new HashSet<>(Collections.singletonList(Role.KUPAC)));
             userRepo.save(Korisnik);
             return "redirect:/auth/login";}
     }

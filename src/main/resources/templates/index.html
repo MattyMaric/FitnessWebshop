@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="En">
 <head>
     <title>Lista Korisnika</title>
     <link rel="stylesheet"
@@ -40,6 +40,10 @@
                     <a th:href="@{/korisnici/edit/{idKorisnika}(idKorisnika=${korisnik.idKorisnika})}" class="btn btn-primary d-inline-block">Uredi</a>
                 </div>
             </td>
+            <td>
+                <span th:each="role : ${korisnik.roles}" class="badge badge-primary mr1" th:text="${role}"></span>
+            </td>
+
         </tr>
         </tbody>
     </table>

@@ -33,6 +33,15 @@
             <input type="password" th:field="*{potvrdaLozinke}" id="potvrdaLozinke" class="form-control" th:errorclass="is-invalid"/>
             <div class="invalid-feedback" th:if="${#fields.hasErrors('potvrdaLozinke')}" th:errors="*{potvrdaLozinke}"></div>
         </div>
+        <div class="form-group">
+            <label for="roles">Uloge:</label>
+            <select multiple th:field="*{roles}" id="roles" class="formcontrol">
+                <option value="ADMIN">Administrator</option>
+                <option value="KUPAC">Kupac</option>
+            </select>
+            <small class="form-text text-muted">Držite Ctrl (Cmd na Macu) za
+                odabir više uloga.</small>
+        </div>
         <button type="submit" class="btn btn-primary">Spremi</button>
     </form>
 </div>

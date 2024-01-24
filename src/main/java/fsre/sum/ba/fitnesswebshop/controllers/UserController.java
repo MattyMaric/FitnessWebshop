@@ -1,6 +1,7 @@
 package fsre.sum.ba.fitnesswebshop.controllers;
 
 import fsre.sum.ba.fitnesswebshop.models.Korisnik;
+import fsre.sum.ba.fitnesswebshop.models.Role;
 import fsre.sum.ba.fitnesswebshop.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,11 +80,12 @@ public class UserController {
         // Lozinka
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String lozinka = encoder.encode(Korisnik.getLozinka());
+        postojeciKorisnik.setRoles(Korisnik.getRoles());
         postojeciKorisnik.setLozinka(lozinka);
         postojeciKorisnik.setPotvrdaLozinke(lozinka);
 
         // Postavite ostala polja po potrebi
         userRepository.save(postojeciKorisnik);
-        return "redirect:/korisnici";
+        return "redirect:/storefront";
     }
 }

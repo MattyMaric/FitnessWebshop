@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -21,12 +22,18 @@ public class Korisnik {
     String email;
     @NotBlank(message = "Polje je obavezno")
     String lozinka;
+    @NotBlank(message = "Polje je obavezno")
     String adresa;
+    @NotBlank(message = "Polje je obavezno")
     String mobitel;
 
     @NotBlank(message = "Molimo ponovo unesite lozinku!")
     @Transient
     String potvrdaLozinke;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
 
 
     public Korisnik(){
@@ -41,6 +48,7 @@ public class Korisnik {
         this.lozinka = lozinka;
         this.adresa = adresa;
         this.mobitel = mobitel;
+        roles.add(Role.KUPAC);
 
     }
 
@@ -117,6 +125,14 @@ public class Korisnik {
     public void setMobitel(String mobitel) {
         this.mobitel = mobitel;
     }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
 
     @AssertTrue(message = "Lozinke se moraju podudarati")
     public boolean isPasswordsEqual() {

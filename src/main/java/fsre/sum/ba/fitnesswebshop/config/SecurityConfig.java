@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
 import javax.sql.DataSource;
@@ -46,6 +47,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers("/auth/register/**","/auth/register")
                 .permitAll()
+                .requestMatchers("/korisnici").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -53,7 +55,7 @@ public class SecurityConfig {
                 .loginPage("/auth/login")
                 .permitAll()
                 .usernameParameter("email")
-                .defaultSuccessUrl("/korisnici", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
@@ -66,5 +68,10 @@ public class SecurityConfig {
     @Bean
     WebSecurityCustomizer ignoringCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/resources/**", "/static/**", "/slikeProizvoda/**");
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+        return new MyAuthenticationSuccessHandler();
     }
 }
