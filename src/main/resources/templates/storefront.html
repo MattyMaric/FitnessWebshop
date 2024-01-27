@@ -1,60 +1,310 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>Početna</title>
-    <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-    />
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Storefront</title>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <style>
+
+        body {
+            padding-top: 56px;
+        }
+
+        .product-card {
+            margin-bottom: 20px;
+        }
+
+        body {
+            overflow-x: hidden;
+        }
+
+        #sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        #sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+        }
+
+
+    </style>
+
 </head>
 <body>
-<nav class="navbar bg-body-secondary">
-    <div class="container-fluid">
-        <a class="navbar-brand ms-1" href="#">FitnessWebShop</a>
-        <button class="btn btn-outline-secondary ms-auto me-2">
-            <i class="bi bi-cart4 pe-2"></i>Korpa
-        </button>
-        <a href="/auth/login" role="button" class="btn btn-primary ms-2">
-            <i class="bi bi-person pe-2"></i>Prijava
-        </a>
-    </div>
-</nav>
 
-<section class="container">
+<script>
+    function toggleNav() {
+        var sidebar = document.getElementById("sidebar");
+        var mainContent = document.getElementById("main");
+
+        if (sidebar.style.width === "250px") {
+            // Ako je sidebar otvoren, zatvori ga
+            sidebar.style.width = "0";
+            mainContent.style.marginLeft = "0";
+            document.body.style.overflow = "auto"; // Re-enable scrolling on the body
+        } else {
+            // Ako je sidebar zatvoren, otvori ga
+            sidebar.style.width = "250px";
+            mainContent.style.marginLeft = "250px";
+            document.body.style.overflow = "hidden"; // Disable scrolling on the body
+        }
+    }
+
+    function toggleSearch() {
+        var searchInput = document.getElementById("searchInput");
+        var searchButton = document.getElementById("searchButton");
+
+        if (searchInput.style.display === "none") {
+            searchInput.style.display = "block";
+            searchButton.textContent = "Zatvori"; // Promijeni tekst u "zatvori"
+        } else {
+            searchInput.style.display = "none";
+            searchButton.textContent = "Search"; // Promijeni tekst u "otvori"}
+        }
+    }
+</script>
+
+
+<div class="container-fluid">
     <div class="row">
-        <div th:each="proizvod : ${proizvodi}" class="col-md-4">
-            <div class="card mb-4 box-shadow">
+        <div class="col-md-3">
 
-                <img th:src="${proizvod.urlSlike}" alt="Product Image">
+            <div id="sidebar">
+                <a href="#">O korisniku</a>
+                <a href="#">Kategorije</a>
+                <a href="#">Contact</a>
+            </div>
 
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${proizvod.imeProdukta}">Product Name</h5>
-                    <p class="card-text" th:text="${proizvod.opisProdukta}">Product Description</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="price" th:text="${proizvod.cijena} + ' KM'">Price</span>
-                        <button type="button" class="btn btn-sm btn-outline-secondary">
-                            Dodaj u Korpu
-                        </button>
-                    </div>
-                </div>
+
+            <div id="main">
+                <button class="btn btn-info " style="background-color:dimgrey;" onclick="toggleNav()">≣ Menu</button>
             </div>
         </div>
     </div>
-</section>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+
+
+
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">FitnessWebShop</a>
+        </div>
+
+
+        <ul class="navbar-nav mr-auto" style="margin-right: 800px;"> <!-- TODO: This margin needs some adjustments -->
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home</a>
+            </li>
+        </ul>
+
+
+        <div class="d-flex">
+            <form class="form-inline">
+                <div class="input-group">
+                    <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" style="display: none;">
+                    <button class="btn btn-outline-light" type="button" id="searchButton" onclick="toggleSearch()">Search</button>
+                </div>
+            </form>
+        </div>
+
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+
+<div class="container mt-4">
+    <div class="row">
+
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 1</h5>
+                    <p class="card-text">Description of Product 1.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 2</h5>
+                    <p class="card-text">Description of Product 2.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more product cards as needed -->
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 3</h5>
+                    <p class="card-text">Description of Product 3.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 4</h5>
+                    <p class="card-text">Description of Product 4.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 5</h5>
+                    <p class="card-text">Description of Product 5.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 6</h5>
+                    <p class="card-text">Description of Product 6.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 7</h5>
+                    <p class="card-text">Description of Product 7.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 8</h5>
+                    <p class="card-text">Description of Product 8.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 9</h5>
+                    <p class="card-text">Description of Product 9.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add more product cards as needed -->
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 10</h5>
+                    <p class="card-text">Description of Product 10.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 11</h5>
+                    <p class="card-text">Description of Product 11.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-md-2">
+            <div class="card product-card">
+                <img src="https://via.placeholder.com/300" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">Product 12</h5>
+                    <p class="card-text">Description of Product 12.</p>
+                    <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+<footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2024 FitnessWebShop. All rights reserved.</p>
+</footer>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
