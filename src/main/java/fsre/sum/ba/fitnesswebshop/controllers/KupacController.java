@@ -16,8 +16,6 @@ public class KupacController {
         // Dodajte potrebne atribute u model
         return "kupac/dashboard";
     }
-
-    // Ostale metode specifične za studente
 }
 
 //TODO: Update return function to appropriate link

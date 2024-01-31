@@ -13,7 +13,7 @@ public class Produkt {
 
     String imeProdukta;
     String opisProdukta;
-    long cijena;
+    int cijena;
     int kolicinaNaSkladistu;
     String urlSlike;
 
@@ -21,7 +21,7 @@ public class Produkt {
 
     }
 
-    public Produkt(long idProdukta, String imeProdukta, String opisProdukta, long cijena, int kolicinaNaSkladistu, String kategorija, String urlSlike) {
+    public Produkt(long idProdukta, String imeProdukta, String opisProdukta, int cijena, int kolicinaNaSkladistu, String kategorija, String urlSlike) {
         this.idProdukta = idProdukta;
         this.imeProdukta = imeProdukta;
         this.opisProdukta = opisProdukta;
@@ -61,11 +61,11 @@ public class Produkt {
         this.opisProdukta = opisProdukta;
     }
 
-    public long getCijena() {
+    public int getCijena() {
         return cijena;
     }
 
-    public void setCijena(long cijena) {
+    public void setCijena(int cijena) {
         this.cijena = cijena;
     }
 

@@ -2,8 +2,10 @@ package fsre.sum.ba.fitnesswebshop.models;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
 public class DetaljiKorisnika implements org.springframework.security.core.userdetails.UserDetails {
@@ -20,11 +22,6 @@ public class DetaljiKorisnika implements org.springframework.security.core.userd
 
     public DetaljiKorisnika(Korisnik korisnik) {
         this.korisnik = korisnik;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
     }
 
     @Override
@@ -68,4 +65,12 @@ public class DetaljiKorisnika implements org.springframework.security.core.userd
     public void setKorisnik(Korisnik korisnik) {
         this.korisnik = korisnik;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return korisnik.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.name()))
+                .collect(Collectors.toList());}
+
+
 }

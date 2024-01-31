@@ -5,6 +5,7 @@ import fsre.sum.ba.fitnesswebshop.models.Role;
 import fsre.sum.ba.fitnesswebshop.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,7 @@ public class UserController {
     UserRepository userRepository;
 
     @GetMapping("/korisnici")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String listUsers(Model model) {
         List<Korisnik> korisnici = userRepository.findAll();
         model.addAttribute("korisnici", korisnici);
@@ -33,12 +35,14 @@ public class UserController {
     // U klasi UserController
 
     @GetMapping("/korisnici/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String showAddUserForm(Model model) {
         model.addAttribute("korisnik", new Korisnik());
         return "korisnici/add";
     }
 
     @PostMapping("/korisnici/add")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String addUser(@Valid Korisnik Korisnik, BindingResult result, Model model) {
         if (result.hasErrors()){
             model.addAttribute("korisnik", Korisnik);
@@ -54,6 +58,7 @@ public class UserController {
     }
 
     @PostMapping("/korisnici/delete/{idKorisnika}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteUser(@PathVariable Long idKorisnika) {
         userRepository.deleteById(idKorisnika);
         return "redirect:/korisnici";
@@ -62,6 +67,7 @@ public class UserController {
     // U klasi UserController
 
     @GetMapping("/korisnici/edit/{idKorisnika}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String showEditUserForm(@PathVariable Long idKorisnika, Model model) {
         Korisnik Korisnik = userRepository.findById(idKorisnika)
                 .orElseThrow(() -> new IllegalArgumentException("Neispravan ID korisnika: " + idKorisnika));
@@ -70,6 +76,7 @@ public class UserController {
     }
 
     @PostMapping("/korisnici/edit/{idKorisnika}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String updateUser(@PathVariable Long idKorisnika, @ModelAttribute Korisnik Korisnik, Model model) {
         // Provjerite postoji li korisnik s tim ID-om
         fsre.sum.ba.fitnesswebshop.models.Korisnik postojeciKorisnik = userRepository.findById(idKorisnika)
@@ -87,5 +94,5 @@ public class UserController {
         // Postavite ostala polja po potrebi
         userRepository.save(postojeciKorisnik);
         return "redirect:/storefront";
-    }
+}
 }
