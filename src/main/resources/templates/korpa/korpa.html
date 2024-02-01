@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Korpa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<style>
+    body {
+        background-color: #343a40; /* Dark grey background color */
+        color: #fff; /* White text color */
+    }</style>
+<body>
+<nav class="navbar">
+    <div class="container-fluid">
+        <a th:href="@{/}" class="btn btn-primary ms-auto me-2" role="button">Početna</a>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h2>Korpa</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Naziv</th>
+            <th scope="col">Količina</th>
+            <th scope="col">Cijena</th>
+            <th scope="col">Ukupno</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="stavkaKorpe : ${stavkeKorpe}">
+            <td><img th:src="${stavkaKorpe.produkt.urlSlike}" alt="Product Image" style="max-height: 50px; max-width: 50px;"></td>
+            <td th:text="${stavkaKorpe.produkt.imeProdukta}">ime</td>
+            <td th:text="${stavkaKorpe.kolicina}">kolicina</td>
+            <td th:text="${stavkaKorpe.produkt.cijena} + ' KM'">cijena</td>
+            <td th:text="${stavkaKorpe.produkt.cijena * stavkaKorpe.kolicina} + ' KM'">ukupno</td>
+            <td> <a th:href="@{/korpa/ukloniIzKorpe/{stavkaKorpeId}(stavkaKorpeId=${stavkaKorpe.id})}" role="button" class="btn btn-danger"><i class="bi bi-trash"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>Ukupna cijena: <span th:text="${ukupnaCijena} + ' KM'"></span></p>
+    <button class="btn btn-primary"><i class="bi bi-bag"></i><span class="ms-1">Naruči</span></button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

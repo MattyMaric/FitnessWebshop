@@ -1,19 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="En">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lista Korisnika</title>
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #343a40; /* Dark grey background color */
+            color: #fff; /* White text color */
+        }
+        .table th, .table td {
+            color: #fff; /* White text color for table cells */
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-5">
-    <a href="http://localhost:8080" class="btn btn-primary justify-content-end">Početna</a>
     <h2>Lista Korisnika</h2>
-    <a href="/korisnici/add" class="btn btn-success">Dodaj Novog Korisnika</a>
-    <form th:action="@{/logout}" method="post">
-        <button type="submit" class="btn btn-danger">Odjavi se</button>
-    </form>
-    <table class="table">
+    <div class="btn-group" role="group" aria-label="Button Group">
+        <a href="http://localhost:8080" class="btn btn-outline-primary">Početna</a>
+        <a href="/korisnici/add" class="btn btn-outline-success">Dodaj Novog Korisnika</a>
+        <form th:action="@{/logout}" method="post" class="d-inline">
+            <button type="submit" class="btn btn-outline-danger">Odjavi se</button>
+        </form>
+    </div>
+    <table class="table mt-3 table-dark">
         <thead>
         <tr>
             <th>Ime</th>
@@ -22,6 +32,7 @@
             <th>Adresa</th>
             <th>Broj Mobitela</th>
             <!-- Dodajte dodatne stupce ako je potrebno -->
+            <th>Akcije</th>
         </tr>
         </thead>
         <tbody>
@@ -33,17 +44,11 @@
             <td th:text="${korisnik.mobitel}">Email</td>
             <!-- Dodajte dodatne ćelije ako je potrebno -->
             <td>
-                <div>
-                    <form th:action="@{/korisnici/delete/{idKorisnika}(idKorisnika=${korisnik.idKorisnika})}" method="post" class="d-inline">
-                        <button type="submit" class="btn btn-danger">Obriši</button>
-                    </form>
-                    <a th:href="@{/korisnici/edit/{idKorisnika}(idKorisnika=${korisnik.idKorisnika})}" class="btn btn-primary d-inline-block">Uredi</a>
-                </div>
+                <form th:action="@{/korisnici/delete/{idKorisnika}(idKorisnika=${korisnik.idKorisnika})}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-outline-danger">Obriši</button>
+                </form>
+                <a th:href="@{/korisnici/edit/{idKorisnika}(idKorisnika=${korisnik.idKorisnika})}" class="btn btn-outline-primary">Uredi</a>
             </td>
-            <td>
-                <span th:each="role : ${korisnik.roles}" class="badge badge-primary mr1" th:text="${role}"></span>
-            </td>
-
         </tr>
         </tbody>
     </table>
