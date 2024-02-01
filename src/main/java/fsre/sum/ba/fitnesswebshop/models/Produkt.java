@@ -8,12 +8,12 @@ import java.util.Set;
 public class Produkt {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long idProdukta;
 
     String imeProdukta;
     String opisProdukta;
-    int cijena;
+    double cijena;
     int kolicinaNaSkladistu;
     String urlSlike;
 
@@ -21,7 +21,7 @@ public class Produkt {
 
     }
 
-    public Produkt(long idProdukta, String imeProdukta, String opisProdukta, int cijena, int kolicinaNaSkladistu, String kategorija, String urlSlike) {
+    public Produkt(long idProdukta, String imeProdukta, String opisProdukta, double cijena, int kolicinaNaSkladistu, String kategorija, String urlSlike) {
         this.idProdukta = idProdukta;
         this.imeProdukta = imeProdukta;
         this.opisProdukta = opisProdukta;
@@ -61,11 +61,11 @@ public class Produkt {
         this.opisProdukta = opisProdukta;
     }
 
-    public int getCijena() {
+    public double getCijena() {
         return cijena;
     }
 
-    public void setCijena(int cijena) {
+    public void setCijena(double cijena) {
         this.cijena = cijena;
     }
 
