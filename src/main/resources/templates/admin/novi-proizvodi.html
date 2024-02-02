@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h2 class="card-title text-center mb-4">Dodaj novi proizvod</h2>
 
-                    <form th:action="@{/admin/noviProizvodi}" th:object="${proizvod}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{/admin/noviProizvodi}" th:object="${proizvod}" method="post">
                         <div class="mb-3">
                             <label for="productName" class="form-label">Ime proizvoda:</label>
                             <input type="text" class="form-control" id="productName" th:field="*{imeProdukta}" required/>
@@ -35,12 +35,17 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="image" class="form-label">Slika:</label>
-                            <input type="file" class="form-control" id="image" name="image" required/>
+                            <label for="urlSlike" class="form-label">URL slike:</label>
+                            <input type="text" class="form-control" id="urlSlike" name="urlSlike" th:field="*{urlSlike}" required/>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Dodaj Proizvod</button>
                     </form>
+
+                    <div th:if="${uspjeh}" class="alert alert-success mt-1" role="alert">
+                        <strong th:text="${uspjeh}"></strong>
+                    </div>
+
                 </div>
             </div>
         </div>
