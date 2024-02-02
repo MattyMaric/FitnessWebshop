@@ -99,8 +99,7 @@
         <div class="col-md-3">
 
             <div id="sidebar">
-                <a href="#">O korisniku</a>
-                <a href="#">Kategorije</a>
+                <a href="/kategorije">Kategorije</a>
                 <a href="/support">Contact</a>
             </div>
 
@@ -138,14 +137,7 @@
 
 
 
-        <div class="d-flex">
-            <form class="form-inline">
-                <div class="input-group">
-                    <input class="form-control mr-2" type="search" placeholder="Search" aria-label="Search" id="searchInput" style="display: none;">
-                    <button class="btn btn-outline-light" type="button" id="searchButton" onclick="toggleSearch()">Search</button>
-                </div>
-            </form>
-        </div>
+
 
         <div class="dropdown" sec:authorize="isAuthenticated()" th:if="${korisnik}">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="userNameDropdown" data-bs-toggle="dropdown" aria-expanded="false" th:text="${korisnik.ime} + ' ' + ${korisnik.prezime}">
